@@ -93,7 +93,7 @@ int main()<br>
  			case 12:s1.search(); <br>
  			s1.display(); <br>
  			break; <br>
-      case 13:s1.display(); <br>
+      			case 13:s1.display(); <br>
  			break; <br>
  			case 14:exit(0); <br>
  			break; <br>
