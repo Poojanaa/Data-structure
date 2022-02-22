@@ -874,5 +874,117 @@ __________<br>
 13.Display<br>
 14.Exit<br>
 Enter your choice:14<br>
-
 --------------------------------<br>
+<br>
+**2.. Write a C++ program to split the linked list into two halves such that the element ‘e’ should be the first element of second list.**<br>
+#include<iostream><br>
+using namespace std;<br>
+struct Node <br>
+{<br>
+	int value;<br>
+	struct Node *next;<br>
+};<br>
+struct Node* head=NULL;<br>
+struct Node* sHead=NULL;<br>
+struct Node* temp=NULL;<br>
+void insert(int new_data)<br>
+{<br>
+	struct Node* new_node = new Node();<br>
+	new_node->value = new_data;<br>
+	new_node->next = head;<br>
+	head = new_node;<br>
+}<br>
+int n;<br>
+int ele;<br>
+int splitlndex;<br>
+int main()<br>
+{<br>
+	cout<<"Enter number of elements you want in the list\t";<br>
+	cin>>n;<br>
+	cout<<"Enter elements:"<<endl;<br>
+	for(i=0;i<n;i++)<br>
+	{<br>
+		cin>>ele;<br>
+		insert(ele);<br>
+	}<br>
+	cout<<"\nList of elements:"<<endl;<br>
+	Node *t;<br>
+	t=head;<br>
+	while(t!=NULL)<br>
+	{<br>
+		cout<<t->value<<"\t";<br>
+		t=t->next;<br>
+	}<br>
+	cout<<"\n\nEnter the position you want the list to split";<br>
+	cin>>splitlndex;<br>
+	while(splitlndex<0||splitlndex>n-1)<br>
+	{<br>
+		cout<<"Invalid position.Try again."<<endl;<br>
+		cin>>splitlndex;<br>
+	}<br>
+	temp = head;<br>
+	for(i=0;i<splitlndex;i++)<br>
+	{<br>
+		if(i==splitlndex-1)<br>
+		{<br>
+			Node *tN;<br>
+			tN=temp->next;<br>
+			sHead=tN;<br>
+			temp->next=NULL;<br>
+			break;<br>
+		}<br>
+		temp=temp->next;<br>
+	}<br>
+	temp=head;<br>
+	if(temp==NULL)<br>
+	{<br>
+		cout<<"\n First list is empty"<<endl;<br>
+	}<br>
+	else<br>
+	{<br>
+		cout<<"\n\nFirst list element"<<endl;<br>
+		while(temp!=NULL)<br>
+		{<br>
+			cout<<temp->value<<"\t";<br>
+			temp=temp->next;<br>
+		}<br>
+	}<br>
+	temp=sHead;<br>
+	if(temp==NULL)<br>
+	{<br>
+		cout<<"\nSecond list is empty"<<endl;<br>
+	}<br>
+	else<br>
+	{<br>
+		cout<<"\n\nSecond list elements"<<endl;<br>
+		while(temp!=NULL)<br>
+		{<br>
+			cout<<temp->value<<"\t";<br>
+			temp=temp->next;<br>
+		}<br>
+	}<br>
+	return 0;<br>
+}<br>
+<br>
+**Output:-**<br>
+Enter number of elements you want in the list   5<br>
+Enter elements :<br>
+1<br>
+2<br>
+3<br>
+4<br>
+5<br>
+List of elements :<br>
+5       4       3       2       1<br>
+Enter the position you want the list to split 6<br>
+Invalid position. Try again.<br>
+3<br>
+First list element<br>
+5       4       3<br>
+Second list elements<br>
+2       1<br>
+	<br>
+	<br>
+
+
+
