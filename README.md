@@ -985,6 +985,247 @@ Second list elements<br>
 2       1<br>
 	<br>
 	<br>
+**3.Write a program to store k keys into an array of size n at the location compute using a hash function, loc=key%n, where k<=n and  key takes values from [1 to m], m>n. Handle the collision using Linear Probing technique.**<br>
+#include<iostream><br>
+#include<limits.h><br>
+using namespace std;<br>
+void Insert(int ary[],int hFn,int Size)<br>
+{<br>
+	int element ,pos,n=0;<br>
+	cout<<"Enter key element to insert\n";<br>
+	cin>>element;<br>
+	pos=element%hFn;<br>
+	while(ary[pos]!=INT_MIN)<br>
+	{<br>
+		if(ary[pos]==INT_MAX)<br>
+		break;<br>
+		pos=(pos+1)%hFn;<br>
+		n++;<br>
+		if(n==Size)<br>
+		break;<br>
+	}<br>
+	if(n==Size)<br>
+		cout<<"Hash table was full of element\nNo Place to insert this element\n\n";<br>
+	else<br>
+		ary[pos]=element;<br>
+}<br>
+void display(int ary[],int Size)<br>
+{<br>
+	int i;<br>
+	cout<<"Index\tValue\n";<br>
+	for(i=0;i<Size;i++)<br>
+		cout<<i<<"\t"<<ary[i]<<"\n";<br>
+}<br>
+int main()<br>
+{<br>
+	int Size,hFn,i,choice;<br>
+	cout<<"Enter size of hash table\n";<br>
+	cin>>Size;<br>
+	hFn=Size;<br>
+	int ary[Size];<br>
+	for(i=0;i<Size;i++)<br>
+		ary[i]=INT_MIN;<br>
+		do<br>
+		{<br>
+			cout<<"Entwr your choice\n";<br>
+			cout<<"1->Insert\n 2->Display\n 0-> Exit\n";<br>
+			cin>>choice;<br>
+			switch(choice)<br>
+			{<br>
+			case 1:<br>
+			Insert(ary,hFn,Size);<br>
+			break;<br>
+			case 2:<br>
+			display(ary,Size);<br>
+			break;<br>
+			dfault:<br>
+			cout<<"Enter correct choice\n";<br>
+			break;<br>
+			}<br>
+		}<br>
+		while(choice);<br>
+		return 0;<br>
+	}<br>
+**Output:-**<br>
+Enter size of hash table<br>
+5<br>
+Entwr your choice<br>
+1->Insert<br>
+ 2->Display<br>
+ 0-> Exit<br>
+1<br>
+Enter key element to insert<br>
+31<br>
+Entwr your choice<br>
+1->Insert<br>
+ 2->Display<br>
+ 0-> Exit<br>
+1<br>
+Enter key element to insert<br>
+24<br>
+Entwr your choice<br>
+1->Insert<br>
+ 2->Display<br>
+ 0-> Exit<br>
+1<br>
+Enter key element to insert<br>
+20<br>
+Entwr your choice<br>
+1->Insert<br>
+ 2->Display<br>
+ 0-> Exit<br>
+1<br>
+Enter key element to insert<br>
+55<br>
+Entwr your choice<br>
+1->Insert<br>
+ 2->Display<br>
+ 0-> Exit<br>
+1<br>
+Enter key element to insert<br>
+11<br>
+Entwr your choice<br>
+1->Insert<br>
+ 2->Display<br>
+ 0-> Exit<br>
+2<br>
+Index   Value<br>
+0       20<br>
+1       31<br>
+2       55<br>
+3       11<br>
+4       24<br>
+Entwr your choice<br>
+1->Insert<br>
+ 2->Display<br>
+ 0-> Exit<br>
+<br>
+<br>
+<br>
+**4.Implement a program using doubly linked list**<br>
+#include <iostream><br>
+using namespace std;<br>
+struct Node<br>
+{<br>
+   int data;<br>
+   struct Node *prev;<br>
+   struct Node *next;<br>
+};<br>
+struct Node* head = NULL;<br>
+void insert(int newdata) <br>
+{<br>
+   struct Node* newnode = (struct Node*) malloc(sizeof(struct Node));<br>
+   newnode->data = newdata;<br>
+   newnode->prev = NULL;<br>
+   newnode->next = head;<br>
+   if(head != NULL)<br>
+   head->prev = newnode ;<br>
+   head = newnode;<br>
+}<br>
+void display() <br>
+{<br>
+   struct Node* ptr;<br>
+   ptr = head;<br>
+   while(ptr != NULL) <br>
+   {<br>
+      cout<< ptr->data <<" ";<br>
+      ptr = ptr->next;<br>
+   }<br>
+}<br>
+int main() <br>
+{<br>
+   insert(3);<br>
+   insert(1);<br>
+   insert(7);<br>
+   insert(2);<br>
+   insert(9);<br>
+   cout<<"The doubly linked list is: ";<br>
+   display();<br>
+   return 0;<br>
+}<br>
+**Output:-**<br><br>
+The doubly linked list is: 9 2 7 1 3<br>
+--------------------------------<br>
+<br>
+<br>
+<br>
+**5. Write a C++ program for implementing Heap sort technique.**<br>
+#include <iostream><br>
+using namespace std;<br>
+void MaxHeapify (int a[], int i, int n)<br>
+{<br>
+	int j, temp;<br>
+	temp = a[i];<br>
+	j = 2*i;<br>
+	while (j <= n)<br>
+	{<br>
+		if (j < n && a[j+1] > a[j])<br>
+		j = j+1;<br>
+		if (temp > a[j])<br>
+			break;<br>
+		else if (temp <= a[j])<br>
+		{<br>
+			a[j/2] = a[j];<br>
+			j = 2*j;<br>
+		}<br>
+	}<br>
+	a[j/2] = temp;<br>
+	return;<br>
+}<br>
+void HeapSort(int a[], int n)<br>
+{<br>
+	int i, temp;<br>
+	for (i = n; i >= 2; i--)<br>
+	{<br>
+		temp = a[i];<br>
+		a[i] = a[1];<br>
+		a[1] = temp;<br>
+		MaxHeapify(a, 1, i - 1);<br>
+	}<br>
+}<br>
+void Build_MaxHeap(int a[], int n)<br>
+{<br>
+	int i;<br>
+	for(i = n/2; i >= 1; i--)<br>
+		MaxHeapify(a, i, n);<br>
+}<br>
+int main()<br>
+{<br>
+int n, i,arr[100];<br>
+	cout<<"\nEnter the number of data element to be sorted: ";<br>
+	cin>>n;<br>
+	n++;<br>
+	for(i=1;i<n;i++)<br>
+	 {<br>
+	 cout<<"Enter element"<<i<<":";<br>
+	 cin>>arr[i];<br>
+	 }<br>
+	Build_MaxHeap(arr, n-1);<br>
+	HeapSort(arr, n-1);<br>
+	cout<<"\nSorted Data ";<br>
+	for (i = 1; i < n; i++)<br>
+		cout<<" "<<arr[i];<br>
+	return 0;<br>
+}<br>
+<br>
+<br>
+**Output:-**<br>
+Enter the number of data element to be sorted: 5<br>
+Enter element1:81<br>
+Enter element2:3<br>
+Enter element3:5<br>
+Enter element4:19<br>
+Enter element5:44<br>
+
+Sorted Data  3 5 19 44 81<br>
+--------------------------------<br>
+<br>
+<br>
+<br>
+**6.**
+
+
+
 
 
 
