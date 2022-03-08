@@ -1222,95 +1222,189 @@ Sorted Data  3 5 19 44 81<br>
 <br>
 <br>
 <br>
-**6.Program to ctreate minimum and maximum heap.**<br>
-	#include <iostream>
-#include <conio.h>
-using namespace std;
-void max_heapify(int *a, int i, int n)
-{
-    int j, temp;
-    temp = a[i];
-    j = 2 * i;
-    while (j <= n)
-    {
-        if (j < n && a[j+1] > a[j])
-            j = j + 1;
-        if (temp > a[j])
-            break;
-        else if (temp <= a[j])
-        {
-            a[j / 2] = a[j];
-            j = 2 * j;
-        }
-    }
-    a[j/2] = temp;
-    return;
-}
-void min_heapify(int *a,int i,int n)
-{
-    int j, temp;
-    temp = a[i];
-    j = 2 * i;
-    while (j <= n)
-    {
-        if (j < n && a[j+1] < a[j])
-            j = j + 1;
-        if (temp < a[j])
-            break;
-        else if (temp >= a[j])
-        {
-            a[j/2] = a[j];
-            j = 2 * j;
-        }
-    }
-    a[j/2] = temp;
-    return;	
-}
-void build_minheap(int *a, int n)
-{ 
-    int i;
-    for(i= n/2; i >= 1; i--)
-    {
-        min_heapify(a,i,n);
-    }
-}
-void build_maxheap(int *a,int n)
-{
-    int i;
-    for(i = n/2; i >= 1; i--)
-    {
-        max_heapify(a,i,n);
-    }
-}
-int main()
-{
-    int n, i, x;
-    cout<<"enter no of elements of array\n";
-    cin>>n;
-    int a[20];
-    for (i = 1; i <= n; i++)
-    {
-        cout<<"enter element"<<(i)<<endl;
-        cin>>a[i];
-    }
-    build_maxheap(a,n);
-    {
-		cout<<"Max Heap\n";
-    	for (i = 1; i <= n; i++)
-    	{
-        	cout<<a[i]<<endl;
-    	}
-	}
-	build_minheap(a,n);
-    {
-		cout<<"Min Heap\n";
-    	for (i = 1; i <= n; i++)
-    	{
-        	cout<<a[i]<<endl;
-    	}
-	}
-    getch();
-}
+**6.Program to create minimum and maximum heap.**<br>
+#include <iostream><br>
+#include <conio.h><br>
+using namespace std;<br>
+void max_heapify(int *a, int i, int n)<br>
+{<br>
+    int j, temp;<br>
+    temp = a[i];<br>
+    j = 2 * i;<br>
+    while (j <= n)<br>
+    {<br>
+        if (j < n && a[j+1] > a[j])<br>
+            j = j + 1;<br>
+        if (temp > a[j])<br>
+            break;<br>
+        else if (temp <= a[j])<br>
+        {<br>
+            a[j / 2] = a[j];<br>
+            j = 2 * j;<br>
+        }<br>
+    }<br>
+    a[j/2] = temp;<br>
+    return;<br>
+}<br>
+void min_heapify(int *a,int i,int n)<br>
+{<br>
+    int j, temp;<br>
+    temp = a[i];<br>
+    j = 2 * i;<br>
+    while (j <= n)<br>
+    {<br>
+        if (j < n && a[j+1] < a[j])<br>
+            j = j + 1;<br>
+        if (temp < a[j])<br>
+            break;<br>
+        else if (temp >= a[j])<br>
+        {<br>
+            a[j/2] = a[j];<br>
+            j = 2 * j;<br>
+        }<br>
+    }<br>
+    a[j/2] = temp;<br>
+    return;<br>	
+}<br>
+void build_minheap(int *a, int n)<br>
+{ <br>
+    int i;<br>
+    for(i= n/2; i >= 1; i--)<br>
+    {<br>
+        min_heapify(a,i,n);<br>
+    }<br>
+}<br>
+void build_maxheap(int *a,int n)<br>
+{<br>
+    int i;<br>
+    for(i = n/2; i >= 1; i--)<br>
+    {<br>
+        max_heapify(a,i,n);<br>
+    }<br>
+}<br>
+int main()<br>
+{<br>
+    int n, i, x;<br>
+    cout<<"enter no of elements of array\n";<br>
+    cin>>n;<br>
+    int a[20];<br>
+    for (i = 1; i <= n; i++)<br>
+    {<br>
+        cout<<"enter element"<<(i)<<endl;<br>
+        cin>>a[i];<br>
+    }<br>
+    build_maxheap(a,n);<br>
+    {<br>
+		cout<<"Max Heap\n";<br>
+    	for (i = 1; i <= n; i++)<br>
+    	{<br>
+        	cout<<a[i]<<endl;<br>
+    	}<br>
+	}<br>
+	build_minheap(a,n);<br>
+    {<br>
+		cout<<"Min Heap\n";<br>
+    	for (i = 1; i <= n; i++)<br>
+    	{<br>
+        	cout<<a[i]<<endl;<br>
+    	}<br>
+	}<br>
+    getch();<br>
+}<br>
+<br>
+**Output:-**<br>
+enter no of elements of array<br>
+5<br>
+enter element1<br>
+32<br>
+enter element2<br>
+7<br>
+enter element3<br>
+4<br>
+enter element4<br>
+89<br>
+enter element5<br>
+14<br>
+Max Heap<br>
+89<br>
+32<br>
+4<br>
+7<br>
+14<br>
+Min Heap<br>
+4<br>
+7<br>
+89<br>
+32<br>
+14<br>
+<br>
+<br>
+**7. program to create a sum of subset using back tracking**<br>
+#include<iostream><br>
+using namespace std;<br>
+int s[10],d,n,set[10],count=0;<br>
+void display(int);<br>
+int flag = 0;<br>
+int main()<br>
+{<br>
+	int subset(int,int);<br>
+ 	int i;<br>
+	cout<<"ENTER THE NUMBER OF THE ELEMENTS IN THE SET : ";<br>
+ 	cin>>n;<br>
+ 	cout<<"ENTER THE SET OF VALUES : ";<br>
+ 	for(i=0;i<n;i++)<br>
+    	cin>>s[i];<br>
+ 	cout<<"ENTER THE SUM : ";<br>
+ 	cin>>d;<br>
+ 	cout<<"THE PROGRAM OUTPUT IS: ";<br>
+ 	subset(0 , 0);<br>
+ 	if(flag == 0)<br>
+ 	cout<<"There is no solution";<br>
+ }<br>
+int subset(int sum,int i)<br>
+{<br>
+	if(sum == d)<br>
+	{<br>
+ 		flag = 1;<br>
+ 		display(count);<br>
+ 		return 0;<br>
+	}<br>
+	if(sum>d || i>=n)<br>
+	return 1;<br>
+	else<br>
+	{<br>
+ 		set[count]=s[i];<br>
+ 		count++;<br>
+ 		subset(sum+s[i],i+1);<br>
+ 		count--;<br>
+ 		subset(sum,i+1);<br>
+	}<br>
+}<br>
+
+void display(int count)<br>
+{<br>
+ int i;<br>
+ cout<<"\t { ";<br>
+ for(i=0;i<count;i++)<br>
+ cout<<set[i];<br>
+ cout<<"}";<br>
+}<br>
+<br>
+**Output:-**<br>
+ENTER THE NUMBER OF THE ELEMENTS IN THE SET : 5<br>
+ENTER THE SET OF VALUES : 1<br>
+4<br>
+6<br>
+10<br>
+9<br>
+ENTER THE SUM : 20<br>
+THE PROGRAM OUTPUT IS:  {1469}  {1109}  {4610}<br>
+--------------------------------<br>
+<br>
+<br>
+
+
+
 
 
 
