@@ -1402,6 +1402,286 @@ THE PROGRAM OUTPUT IS:  {1469}  {1109}  {4610}<br>
 --------------------------------<br>
 <br>
 <br>
+**8.Write a program to insertion into an AVL tree and deletion from an AVL tree.**<br>
+#include<iostream><br>
+#include<cstdio><br>
+#include<sstream><br>
+#include<algorithm><br>
+#define pow2(n) (1 << (n))<br>
+using namespace std;<br>
+struct avl {<br>
+   int d;<br>
+   struct avl *l;<br>
+   struct avl *r;<br>
+}*r;<br>
+class avl_tree {<br>
+   public:<br>
+      int height(avl *);<br>
+      int difference(avl *);<br>
+      avl *rr_rotat(avl *);<br>
+      avl *ll_rotat(avl *);<br>
+      avl *lr_rotat(avl*);<br>
+      avl *rl_rotat(avl *);<br>
+      avl * balance(avl *);<br>
+      avl * insert(avl*, int);<br>
+      void show(avl*, int);<br>
+      void inorder(avl *);<br>
+      void preorder(avl *);<br>
+      void postorder(avl*);<br>
+      avl_tree() {<br>
+         r = NULL;<br>
+      }<br>
+};<br>
+int avl_tree::height(avl *t) {<br>
+   int h = 0;<br>
+   if (t != NULL) {<br>
+      int l_height = height(t->l);<br>
+      int r_height = height(t->r);<br>
+      int max_height = max(l_height, r_height);<br>
+      h = max_height + 1;<br>
+   }<br>
+   return h;<br>
+}<br>
+int avl_tree::difference(avl *t) {<br>
+   int l_height = height(t->l);<br>
+   int r_height = height(t->r);<br>
+   int b_factor = l_height - r_height;<br>
+   return b_factor;<br>
+}<br>
+avl *avl_tree::rr_rotat(avl *parent) {<br>
+   avl *t;<br>
+   t = parent->r;<br>
+   parent->r = t->l;<br>
+   t->l = parent;<br>
+   cout<<"Right-Right Rotation";<br>
+   return t;<br>
+}<br>
+avl *avl_tree::ll_rotat(avl *parent) {<br>
+   avl *t;<br>
+   t = parent->l;<br>
+   parent->l = t->r;<br>
+   t->r = parent;<br>
+   cout<<"Left-Left Rotation";<br>
+   return t;<br>
+}<br>
+avl *avl_tree::lr_rotat(avl *parent) {<br>
+   avl *t;<br>
+   t = parent->l;<br>
+   parent->l = rr_rotat(t);<br>
+   cout<<"Left-Right Rotation";<br>
+   return ll_rotat(parent);<br>
+}<br>
+avl *avl_tree::rl_rotat(avl *parent) {<br>
+   avl *t;<br>
+   t = parent->r;<br>
+   parent->r = ll_rotat(t);<br>
+   cout<<"Right-Left Rotation";<br>
+   return rr_rotat(parent);<br>
+}<br>
+avl *avl_tree::balance(avl *t) {<br>
+   int bal_factor = difference(t);<br>
+   if (bal_factor > 1) {<br>
+      if (difference(t->l) > 0)<br>
+         t = ll_rotat(t);<br>
+      else<br>
+         t = lr_rotat(t);<br>
+   } else if (bal_factor < -1) {<br>
+      if (difference(t->r) > 0)<br>
+         t = rl_rotat(t);<br>
+      else<br>
+         t = rr_rotat(t);<br>
+   }<br>
+   return t;<br>
+}<br>
+avl *avl_tree::insert(avl *r, int v) {<br>
+   if (r == NULL) {<br>
+      r = new avl;<br>
+      r->d = v;<br>
+      r->l = NULL;<br>
+      r->r = NULL;<br>
+      return r;<br>
+   } else if (v< r->d) {<br>
+      r->l = insert(r->l, v);<br>
+      r = balance(r);<br>
+   } else if (v >= r->d) {<br>
+      r->r = insert(r->r, v);<br>
+      r = balance(r);<br>
+   } return r;<br>
+}<br>
+void avl_tree::show(avl *p, int l) {<br>
+   int i;<br>
+   if (p != NULL) {<br>
+      show(p->r, l+ 1);<br>
+      cout<<" ";<br>
+      if (p == r)<br>
+         cout << "Root -> ";<br>
+      for (i = 0; i < l&& p != r; i++)<br>
+         cout << " ";<br>
+         cout << p->d;<br>
+         show(p->l, l + 1);<br>
+   }<br>
+}<br>
+void avl_tree::inorder(avl *t) {<br>
+   if (t == NULL)<br>
+      return;<br>
+      inorder(t->l);<br>
+      cout << t->d << " ";<br>
+      inorder(t->r);<br>
+}<br>
+void avl_tree::preorder(avl *t) {<br>
+   if (t == NULL)<br>
+      return;<br>
+      cout << t->d << " ";<br>
+      preorder(t->l);<br>
+      preorder(t->r);<br>
+}<br>
+void avl_tree::postorder(avl *t) {<br>
+   if (t == NULL)<br>
+      return;<br>
+      postorder(t ->l);<br>
+      postorder(t ->r);<br>
+      cout << t->d << " ";<br>
+}<br>
+int main() {<br>
+   int c, i;<br>
+   avl_tree avl;<br>
+   while (1) {<br>
+      cout << "1.Insert Element into the tree" << endl;<br>
+      cout << "2.show Balanced AVL Tree" << endl;<br>
+      cout << "3.InOrder traversal" << endl;<br>
+      cout << "4.PreOrder traversal" << endl;<br>
+      cout << "5.PostOrder traversal" << endl;<br>
+      cout << "6.Exit" << endl;<br>
+      cout << "Enter your Choice: ";<br>
+      cin >> c;<br>
+      switch (c) {<br>
+         case 1:<br>
+            cout << "Enter value to be inserted: ";<br>
+            cin >> i;<br>
+            r = avl.insert(r, i);<br>
+         break;<br>
+         case 2:<br>
+            if (r == NULL) {<br>
+               cout << "Tree is Empty" << endl;<br>
+               continue;<br>
+            }<br>
+            cout << "Balanced AVL Tree:" << endl;<br>
+            avl.show(r, 1);<br>
+            cout<<endl;<br>
+         break;<br>
+         case 3:<br>
+            cout << "Inorder Traversal:" << endl;<br>
+            avl.inorder(r);<br>
+            cout << endl;<br>
+         break;<br>
+         case 4:<br>
+            cout << "Preorder Traversal:" << endl;<br>
+            avl.preorder(r);<br>
+            cout << endl;<br>
+         break;<br>
+         case 5:<br>
+            cout << "Postorder Traversal:" << endl;<br>
+            avl.postorder(r);<br>
+            cout << endl;<br>
+         break;<br>
+         case 6:<br>
+            exit(1);<br>
+         break;<br>
+         default:<br>
+            cout << "Wrong Choice" << endl;<br>
+      }<br>
+   }<br>
+   return 0;<br>
+}<br>
+**Output:-**<br>
+1.Insert Element into the tree<br>
+2.show Balanced AVL Tree<br>
+3.InOrder traversal<br>
+4.PreOrder traversal<br>
+5.PostOrder traversal<br>
+6.Exit<br>
+Enter your Choice: 1<br>
+Enter value to be inserted: 2<br>
+1.Insert Element into the tree<br>
+2.show Balanced AVL Tree<br>
+3.InOrder traversal<br>
+4.PreOrder traversal<br>
+5.PostOrder traversal<br>
+6.Exit<br>
+Enter your Choice: 1<br>
+Enter value to be inserted: 3<br>
+1.Insert Element into the tree<br>
+2.show Balanced AVL Tree<br>
+3.InOrder traversal<br>
+4.PreOrder traversal<br>
+5.PostOrder traversal<br>
+6.Exit<br>
+Enter your Choice: 1<br>
+Enter value to be inserted: 4<br>
+Right-Right Rotation1.Insert Element into the tree<br>
+2.show Balanced AVL Tree<br>
+3.InOrder traversal<br>
+4.PreOrder traversal<br>
+5.PostOrder traversal<br>
+6.Exit<br>
+Enter your Choice: 1<br>
+Enter value to be inserted: 5<br>
+1.Insert Element into the tree<br>
+2.show Balanced AVL Tree<br>
+3.InOrder traversal<br>
+4.PreOrder traversal<br>
+5.PostOrder traversal<br>
+6.Exit<br>
+Enter your Choice: 1<br>
+Enter value to be inserted: 8<br>
+Right-Right Rotation1.Insert Element into the tree<br>
+2.show Balanced AVL Tree<br>
+3.InOrder traversal<br>
+4.PreOrder traversal<br>
+5.PostOrder traversal<br>
+6.Exit<br>
+Enter your Choice: 2<br>
+Balanced AVL Tree:<br>
+    8   5    4 Root -> 3   2<br>
+1.Insert Element into the tree<br>
+2.show Balanced AVL Tree<br>
+3.InOrder traversal<br>
+4.PreOrder traversal<br>
+5.PostOrder traversal<br>
+6.Exit<br>
+Enter your Choice: 3<br>
+Inorder Traversal:<br>
+2 3 4 5 8<br>
+1.Insert Element into the tree<br>
+2.show Balanced AVL Tree<br>
+3.InOrder traversal<br>
+4.PreOrder traversal<br>
+5.PostOrder traversal<br>
+6.Exit<br>
+Enter your Choice: 4<br><br>
+Preorder Traversal:<br>
+3 2 5 4 8<br>
+1.Insert Element into the tree<br>
+2.show Balanced AVL Tree<br>
+3.InOrder traversal<br>
+4.PreOrder traversal<br>
+5.PostOrder traversal<br>
+6.Exit<br>
+Enter your Choice: 5<br>
+Postorder Traversal:<br>
+2 4 8 5 3<br>
+1.Insert Element into the tree<br>
+2.show Balanced AVL Tree<br>
+3.InOrder traversal<br>
+4.PreOrder traversal<br>
+5.PostOrder traversal<br>
+6.Exit<br>
+Enter your Choice: 6<br>
+--------------------------------<br>
+Process exited after 236.7 seconds with return value 1<br>
+Press any key to continue . . .<br
+<br>
+<br>
 
 
 
