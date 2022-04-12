@@ -1682,6 +1682,76 @@ Process exited after 236.7 seconds with return value 1<br>
 Press any key to continue . . .<br
 <br>
 <br>
+**9.Merge sort using divide and Conquer array.**<br>
+#include <iostream><br>
+using namespace std;<br>
+void mergeofarrays(int a[], int low, int mid, int high) <br>
+{<br>
+ int i = low, j = mid + 1, index = low, temp[100], k;<br>
+  while ((i <= mid) && (j <= high)) <br>
+  {<br>
+    if (a[i] < a[j]) <br>
+    {<br>
+      temp[index] = a[i];<br>
+      i++;<br>
+    } <br>
+    else <br>
+    {<br>
+      temp[index] = a[j];<br>
+      j++;<br>
+    }<br>
+    index++;<br>
+  }<br>
+ 
+  if (i > mid) <br>
+  {<br>
+    while (j <= high) <br>
+    {<br>
+      temp[index] = a[j];<br>
+      j++;<br>
+      index++;<br>
+    }<br>
+  } <br>
+  else <br>
+  {<br>
+    while (i <= mid) <br>
+    {<br>
+      temp[index] = a[i];<br>
+      i++;<br>
+      index++;<br>
+    }<br>
+  }<br>
+  for (k = low; k < index; k++)<br>
+  {<br>
+    a[k] = temp[k];<br>
+  }<br>
+}<br>
+void mergesort(int a[], int low, int high) <br>
+{<br>
+  if (low < high) <br>
+  {<br>
+    int middle = (low + high) / 2; <br>
+    mergesort(a, low, middle); <br>
+    mergesort(a, middle + 1, high);<br> 
+    mergeofarrays(a, low, middle, high); <br>
+  }<br>
+}<br>
+int main() <br>
+{<br>
+  int n = 7;<br>
+  int a[100] = {54,34,23,10,98,2,3};<br>
+  mergesort(a, 0, 6);<br>
+  for (int i = 0; i < n; i++) <br>
+  {<br>
+    cout << a[i] << " ";<br>
+  }<br>
+}<br>
+<br>
+**Output:-**<br>
+2 3 10 23 34 54 98 <br>
+<br>
+<br>
+	
 
 
 
