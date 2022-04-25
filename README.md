@@ -1838,91 +1838,93 @@ int main()<br>
         cout << endl;<br>
     }<br>
   return 0;<br>
-}
+}<br>
+<br>
 **Output:-**<br>
-Enter the number of queen 4
-0 1 0 0
-0 0 0 1
-1 0 0 0
-0 0 1 0
-
-0 0 1 0
-1 0 0 0
-0 0 0 1
-0 1 0 0
---------------------------------
+Enter the number of queen 4<br>
+0 1 0 0<br>
+0 0 0 1<br>
+1 0 0 0<br>
+0 0 1 0<br>
+<br>
+0 0 1 0<br>
+1 0 0 0<br>
+0 0 0 1<br>
+0 1 0 0<br>
+--------------------------------<br>
 <br>
 <br>
 <br>
 **11.program of BFS AND DFS.**<br>
-#include<iostream>
-#include<vector>
-#include<queue>
-#include<stack>
-using namespace std;
-void edge(vector<int>adj[],int u,int v){
-  adj[u].push_back(v);
-}
-void bfs(int s,vector<int>adj[],bool visit[]){
-  queue<int>q;
-  q.push(s);
-  visit[s]=true;
-  while(!q.empty()){
-    int u=q.front();
-    cout<<u<<" ";
-    q.pop();
-    for(int i=0;i<adj[u].size();i++){
-      if(!visit[adj[u][i]]){
-        q.push(adj[u][i]);
-        visit[adj[u][i]]=true;
-      }
-    }
-  }
-}
-void dfs(int s,vector<int>adj[],bool visit[]){
-  stack<int>stk;
-  stk.push(s);
-  visit[s]=true;
-  while(!stk.empty()){
-    int u=stk.top();
-    cout<<u<<" ";
-    stk.pop();
-
-    for(int i=0;i<adj[u].size();i++){
-      if(!visit[adj[u][i]]){
-        stk.push(adj[u][i]);
-        visit[adj[u][i]]=true;
-      }
-    }
-  }
-}
-int main(){
-  vector<int>adj[5];
-  bool visit[5];
-  for(int i=0;i<5;i++){
-    visit[i]=false;
-  }
-  edge(adj,0,2);
-  edge(adj,0,1);
-  edge(adj,1,3);
-  edge(adj,2,0);
-  edge(adj,2,3);
-  edge(adj,2,4);
-  cout<<"BFS traversal is"<<"  ";
-  bfs(0,adj,visit);
-  cout<<endl;
-  for(int i=0;i<5;i++){
-    visit[i]=false;
-  }
-  cout<<"DFS traversal is"<<"  ";
-  dfs(0,adj,visit);
-}
-**Output:-**
-BFS traversal is  0 2 1 3 4
-DFS traversal is  0 1 3 2 4
+#include<iostream><br>
+#include<vector><br>
+#include<queue><br>
+#include<stack><br>
+using namespace std;<br>
+void edge(vector<int>adj[],int u,int v){<br>
+  adj[u].push_back(v);<br>
+}<br>
+void bfs(int s,vector<int>adj[],bool visit[]){<br>
+  queue<int>q;<br>
+  q.push(s);<br>
+  visit[s]=true;<br>
+  while(!q.empty()){<br>
+    int u=q.front();<br>
+    cout<<u<<" ";<br>
+    q.pop();<br>
+    for(int i=0;i<adj[u].size();i++){<br>
+      if(!visit[adj[u][i]]){<br>
+        q.push(adj[u][i]);<br>
+        visit[adj[u][i]]=true;<br>
+      }<br>
+    }<br>
+  }<br>
+}<br>
+void dfs(int s,vector<int>adj[],bool visit[]){<br>
+  stack<int>stk;<br>
+  stk.push(s);<br>
+  visit[s]=true;<br>
+  while(!stk.empty()){<br>
+    int u=stk.top();<br>
+    cout<<u<<" ";<br>
+    stk.pop();<br>
+for(int i=0;i<adj[u].size();i++){<br>
+      if(!visit[adj[u][i]]){<br>
+        stk.push(adj[u][i]);<br>
+        visit[adj[u][i]]=true;<br>
+      }<br>
+    }<br>
+  }<br>
+}<br>
+int main(){<br>
+  vector<int>adj[5];<br>
+  bool visit[5];<br>
+  for(int i=0;i<5;i++){<br>
+    visit[i]=false;<br>
+  }<br>
+  edge(adj,0,2);<br>
+  edge(adj,0,1);<br>
+  edge(adj,1,3);<br>
+  edge(adj,2,0);<br>
+  edge(adj,2,3);<br>
+  edge(adj,2,4);<br>
+  cout<<"BFS traversal is"<<"  ";<br>
+  bfs(0,adj,visit);<br>
+  cout<<endl;<br>
+  for(int i=0;i<5;i++){<br>
+    visit[i]=false;<br>
+  }<br>
+  cout<<"DFS traversal is"<<"  ";<br>
+  dfs(0,adj,visit);<br>
+}<br>
+<br>
+**Output:-**<br>
+BFS traversal is  0 2 1 3 4<br>
+DFS traversal is  0 1 3 2 4<br>
 --------------------------------<br>
 <br>
 <br>
+**12.**
 
 
 
