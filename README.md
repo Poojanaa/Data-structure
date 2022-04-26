@@ -2453,474 +2453,539 @@ Enter your choice : 7<br>
 	<br>
 	<br>
 <br>
-** 13.Write a program to implement a doubly linked list.**
-	/*
- * C++ Program to Implement Doubly Linked List 
+** 13.Write a program to implement a doubly linked list.**<br>
+	/*<br>
+ * C++ Program to Implement Doubly Linked List <br>
  */
-#include<iostream>
-#include<cstdio>
-#include<cstdlib>
-/*
- * Node Declaration
- */
+#include<iostream><br>
+#include<cstdio><br>
+#include<cstdlib><br>
+/*<br>
+ * Node Declaration<br>
+ */<br>
+using namespace std;<br>
+struct node<br>
+{<br>
+    int info;<br>
+    struct node *next;<br>
+    struct node *prev;<br>
+}*start;<br>
+ <br>
+/*<br>
+ Class Declaration <br>
+ */<br>
+class double_llist<br>
+{<br>
+    public:<br>
+        void create_list(int value);<br>
+        void add_begin(int value);<br>
+        void add_after(int value, int position);<br>
+        void delete_element(int value);<br>
+        void search_element(int value);<br>
+        void display_dlist();<br>
+       double_llist()<br>
+        {<br>
+            start = NULL;  <br>
+        }<br>
+};<br>
+ 
+/*<br>
+ * Main: Conatins Menu<br>
+ */<br>
+int main()<br>
+{<br>
+    int choice, element, position;<br>
+    double_llist dl;<br>
+    while (1)<br>
+    {<br>
+        cout<<endl<<"----------------------------"<<endl;<br>
+        cout<<endl<<"Operations on Doubly linked list"<<endl;<br>
+        cout<<endl<<"----------------------------"<<endl; <br>        
+        cout<<"1.Create Node"<<endl;<br>
+        cout<<"2.Add at begining"<<endl;<br>
+        cout<<"3.Add after position"<<endl;<br>
+        cout<<"4.Delete"<<endl;<br>
+        cout<<"5.Display"<<endl;<br>
+        cout<<"6.Quit"<<endl;<br>
+        cout<<"Enter your choice : ";<br>
+        cin>>choice;<br>
+        switch ( choice )<br>
+        {<br>
+        case 1:<br>
+            cout<<"Enter the element: ";<br>
+            cin>>element;<br>
+            dl.create_list(element);<br>
+            cout<<endl;<br>
+            break;<br>
+        case 2:<br>
+            cout<<"Enter the element: ";<br>
+            cin>>element;<br>
+            dl.add_begin(element);<br>
+            cout<<endl;<br>
+            break;<br>
+        case 3:<br>
+            cout<<"Enter the element: ";<br>
+            cin>>element;<br>
+            cout<<"Insert Element after postion: ";<br>
+            cin>>position;<br>
+            dl.add_after(element, position);<br>
+            cout<<endl;<br>
+            break;<br>
+        case 4:<br>
+            if (start == NULL)<br>
+            {<br>                      
+                cout<<"List empty,nothing to delete"<<endl; <br>  
+                break;<br>
+            }<br>
+            cout<<"Enter the element for deletion: ";<br>
+            cin>>element;<br>
+            dl.delete_element(element);<br>
+            cout<<endl;<br>
+            break;<br>
+        case 5:<br>
+            dl.display_dlist();<br>
+            cout<<endl;<br>
+            break;<br>
+        case 6:<br>
+            exit(1);<br>
+        default:<br>
+            cout<<"Wrong choice"<<endl;<br>
+        }<br>
+    }<br>
+    return 0;<br>
+}<br>
+ 
+/*<br>
+ * Create Double Link List<br>
+ */<br>
+void double_llist::create_list(int value)<br>
+{<br>
+    struct node *s, *temp;<br>
+    temp = new(struct node); <br>
+    temp->info = value;<br>
+    temp->next = NULL;<br>
+    if (start == NULL)<br>
+    {<br>
+        temp->prev = NULL;<br>
+        start = temp;<br>
+    }<br>
+    else<br>
+    {<br>
+        s = start;<br>
+        while (s->next != NULL)<br>
+            s = s->next;<br>
+        s->next = temp;<br>
+        temp->prev = s;<br>
+    }<br>
+}<br>
+ 
+/*<br><br>
+ * Insertion at the beginning<br><br>
+ */<br><br>
+void double_llist::add_begin(int value)<br><br>
+{<br><br>
+    if (start == NULL)<br><br>
+    {<br><br>
+        cout<<"First Create the list."<<endl;<br><br>
+        return;<br><br>
+    }<br><br>
+    struct node *temp;<br><br>
+    temp = new(struct node);<br><br>
+    temp->prev = NULL;<br><br>
+    temp->info = value;<br><br>
+    temp->next = start;<br><br>
+    start->prev = temp;<br><br>
+    start = temp;<br><br>
+    cout<<"Element Inserted"<<endl;<br><br>
+}<br><br>
+ 
+/*<br><br>
+ * Insertion of element at a particular position<br><br>
+ */<br><br>
+void double_llist::add_after(int value, int pos)<br><br>
+{<br><br>
+    if (start == NULL)<br><br>
+    {<br><br>
+        cout<<"First Create the list."<<endl;<br><br>
+        return;<br><br>
+    }<br><br>
+    struct node *tmp, *q;<br><br>
+    int i;<br><br>
+    q = start;<br>
+    for (i = 0;i < pos - 1;i++)<br><br>
+    {<br>
+        q = q->next;<br>
+        if (q == NULL)<br>
+        {<br>
+            cout<<"There are less than ";<br>
+            cout<<pos<<" elements."<<endl;<br>
+            return;<br>
+        }<br>
+    }<br>
+    tmp = new(struct node);<br>
+    tmp->info = value;<br>
+    if (q->next == NULL)<br>
+    {<br>
+        q->next = tmp;<br>
+        tmp->next = NULL;<br>
+        tmp->prev = q;<br>  <br> <br> 
+    }<br>
+    else<br>
+    {<br>
+        tmp->next = q->next;<br>
+        tmp->next->prev = tmp;<br>
+        q->next = tmp;<br>
+        tmp->prev = q;<br>
+    }<br>
+    cout<<"Element Inserted"<<endl;<br>
+}<br>
+ 
+/*<br>
+ * Deletion of element from the list<br>
+ */<br>
+void double_llist::delete_element(int value)<br>
+{<br>
+    struct node *tmp, *q;<br>
+     /*first element deletion*/<br>
+    if (start->info == value)<br>
+    {<br>
+        tmp = start;<br>
+        start = start->next;  <br>
+        start->prev = NULL;<br>
+        cout<<"Element Deleted"<<endl;<br>
+        free(tmp);<br>
+        return;<br>
+    }<br>
+    q = start;<br>
+    while (q->next->next != NULL)<br>
+    {   <br>
+        /*Element deleted in between*/<br>
+        if (q->next->info == value)  <br>
+        {<br>
+            tmp = q->next;<br>
+            q->next = tmp->next;<br>
+            tmp->next->prev = q;<br>
+            cout<<"Element Deleted"<<endl;<br>
+            free(tmp);<br>
+            return;<br>
+        }<br>
+        q = q->next;<br>
+    }<br>
+     /*last element deleted*/<br>
+    if (q->next->info == value) <br>   
+    { 	<br>
+        tmp = q->next;<br>
+        free(tmp);<br>
+        q->next = NULL;<br>
+        cout<<"Element Deleted"<<endl;<br>
+        return;<br>
+    }<br>
+    cout<<"Element "<<value<<" not found"<<endl;<br>
+}<br>
+ 
+/*<br>
+ * Display elements of Doubly Link List<br>
+ */<br>
+void double_llist::display_dlist()<br>
+{<br>
+    struct node *q;<br>
+    if (start == NULL)<br>
+    {<br>
+        cout<<"List empty,nothing to display"<<endl;<br>
+        return;<br>
+    }<br>
+    q = start;<br>
+    cout<<"The Doubly Link List is :"<<endl;<br>
+    while (q != NULL)<br>
+    {<br>
+        cout<<q->info<<br>" <-> ";<br>
+        q = q->next;<br>
+    }<br>
+    cout<<"NULL"<<endl;<br>
+}<br>
+**Output:-**<br><br>
+
+----------------------------<br><br>
+
+Operations on Doubly linked list<br><br>
+
+----------------------------<br><br>
+1.Create Node<br><br>
+2.Add at begining<br><br>
+3.Add after position<br><br>
+4.Delete<br><br>
+5.Display<br><br>
+6.Quit<br><br>
+Enter your choice : 1<br><br>
+Enter the element: 10<br><br>
+
+
+----------------------------<br><br>
+
+Operations on Doubly linked list<br><br>
+
+----------------------------<br><br>
+1.Create Node<br><br>
+2.Add at begining<br><br>
+3.Add after position<br><br>
+4.Delete<br><br>
+5.Display<br><br>
+6.Quit<br><br>
+Enter your choice : 1<br><br>
+Enter the element: 20<br><br>
+
+
+----------------------------<br><br>
+
+Operations on Doubly linked list<br>
+
+----------------------------<br>
+1.Create Node<br>
+2.Add at begining<br>
+3.Add after position<br>
+4.Delete<br>
+5.Display<br>
+6.Quit<br>
+Enter your choice : 1<br>
+Enter the element: 30<br>
+
+
+----------------------------<br>
+
+Operations on Doubly linked list<br>
+
+----------------------------<br>
+1.Create Node<br>
+2.Add at begining<br>
+3.Add after position<br>
+4.Delete<br>
+5.Display<br>
+6.Quit<br>
+Enter your choice : 1<br>
+Enter the element: 40<br>
+
+
+----------------------------<br>
+
+Operations on Doubly linked list<br>
+
+----------------------------<br>
+1.Create Node<br>
+2.Add at begining<br>
+3.Add after position<br>
+4.Delete<br>
+5.Display<br>
+6.Quit<br>
+Enter your choice : 1<br>
+Enter the element: 50<br>
+
+
+----------------------------<br>
+
+Operations on Doubly linked list<br>
+
+----------------------------<br>
+1.Create Node<br>
+2.Add at begining<br>
+3.Add after position<br>
+4.Delete<br>
+5.Display<br>
+6.Quit<br>
+Enter your choice : 5<br>
+The Doubly Link List is :<br>
+10 <-> 20 <-> 30 <-> 40 <-> 50 <-> NULL<br>
+
+
+----------------------------<br>
+
+Operations on Doubly linked list<br>
+
+----------------------------<br>
+1.Create Node<br>
+2.Add at begining<br>
+3.Add after position<br>
+4.Delete<br>
+5.Display<br>
+6.Quit<br>
+Enter your choice : 2<br>
+Enter the element: 15<br>
+Element Inserted<br>
+
+
+----------------------------<br>
+
+Operations on Doubly linked list<br>
+
+----------------------------<br>
+1.Create Node<br>
+2.Add at begining<br>
+3.Add after position<br>
+4.Delete<br>
+5.Display<br>
+6.Quit<br>
+Enter your choice : 5<br>
+The Doubly Link List is :<br>
+15 <-> 10 <-> 20 <-> 30 <-> 40 <-> 50 <-> NULL<br>
+
+
+----------------------------<br>
+
+Operations on Doubly linked list<br>
+
+----------------------------<br>
+1.Create Node<br>
+2.Add at begining<br>
+3.Add after position<br>
+4.Delete<br>
+5.Display<br>
+6.Quit<br>
+Enter your choice : 3<br>
+Enter the element: 40<br>
+Insert Element after postion: 3<br>
+Element Inserted<br>
+
+
+----------------------------<br>
+
+Operations on Doubly linked list<br>
+
+----------------------------<br>
+1.Create Node<br>
+2.Add at begining<br>
+3.Add after position<br>
+4.Delete<br>
+5.Display<br>
+6.Quit<br>
+Enter your choice : 5<br>
+The Doubly Link List is :<br>
+15 <-> 10 <-> 20 <-> 40 <-> 30 <-> 40 <-> 50 <-> NULL<br>
+
+
+----------------------------<br>
+
+Operations on Doubly linked list<br>
+
+----------------------------<br>
+1.Create Node<br>
+2.Add at begining<br>
+3.Add after position<br>
+4.Delete<br>
+5.Display<br>
+6.Quit<br>
+Enter your choice : 4<br>
+Enter the element for deletion: 30<br>
+Element Deleted<br>
+
+
+----------------------------<br>
+
+Operations on Doubly linked list<br>
+
+----------------------------<br>
+1.Create Node<br>
+2.Add at begining<br>
+3.Add after position<br>
+4.Delete<br>
+5.Display<br>
+6.Quit<br>
+Enter your choice : 5<br>
+The Doubly Link List is :<br>
+15 <-> 10 <-> 20 <-> 40 <-> 40 <-> 50 <-> NULL<br>
+
+
+----------------------------<br>
+
+Operations on Doubly linked list<br>
+
+----------------------------<br>
+1.Create Node<br>
+2.Add at begining<br>
+3.Add after position<br>
+4.Delete<br>
+5.Display<br>
+6.Quit<br>
+Enter your choice : 8<br>
+Wrong choice<br>
+
+----------------------------<br>
+
+Operations on Doubly linked list<br>
+
+----------------------------<br>
+1.Create Node<br>
+2.Add at begining<br>
+3.Add after position<br>
+4.Delete<br>
+5.Display<br>
+6.Quit<br>
+Enter your choice : 6<br>
+
+--------------------------------<br>
+	<br>
+	<br>
+	<br>
+**1.
+	#include <iostream>
 using namespace std;
-struct node
+void MinMax(int arr[], int low, int high, int &min, int &max)
 {
-    int info;
-    struct node *next;
-    struct node *prev;
-}*start;
- 
-/*
- Class Declaration 
- */
-class double_llist
+if (low == high)
 {
-    public:
-        void create_list(int value);
-        void add_begin(int value);
-        void add_after(int value, int position);
-        void delete_element(int value);
-        void search_element(int value);
-        void display_dlist();
-       double_llist()
-        {
-            start = NULL;  
-        }
-};
- 
-/*
- * Main: Conatins Menu
- */
+if (max < arr[low]) {           // comparison 1
+max = arr[low];
+}
+
+if (min > arr[high]) {          // comparison 2
+min = arr[high];
+}
+return;
+}
+if (high - low == 1)
+{
+if (arr[low] < arr[high])
+{
+if (min > arr[low])
+{
+min = arr[low];
+}
+if (max < arr[high])
+{
+max = arr[high];
+}
+}
+else
+{
+if (min > arr[high])
+{
+min = arr[high];
+}
+if (max < arr[low])
+{
+max = arr[low];
+}
+}
+return;
+}
+int mid = (low + high) / 2;
+MinMax(arr, low, mid, min, max);
+MinMax(arr, mid + 1, high, min, max);
+}
 int main()
 {
-    int choice, element, position;
-    double_llist dl;
-    while (1)
-    {
-        cout<<endl<<"----------------------------"<<endl;
-        cout<<endl<<"Operations on Doubly linked list"<<endl;
-        cout<<endl<<"----------------------------"<<endl;         
-        cout<<"1.Create Node"<<endl;
-        cout<<"2.Add at begining"<<endl;
-        cout<<"3.Add after position"<<endl;
-        cout<<"4.Delete"<<endl;
-        cout<<"5.Display"<<endl;
-        cout<<"6.Quit"<<endl;
-        cout<<"Enter your choice : ";
-        cin>>choice;
-        switch ( choice )
-        {
-        case 1:
-            cout<<"Enter the element: ";
-            cin>>element;
-            dl.create_list(element);
-            cout<<endl;
-            break;
-        case 2:
-            cout<<"Enter the element: ";
-            cin>>element;
-            dl.add_begin(element);
-            cout<<endl;
-            break;
-        case 3:
-            cout<<"Enter the element: ";
-            cin>>element;
-            cout<<"Insert Element after postion: ";
-            cin>>position;
-            dl.add_after(element, position);
-            cout<<endl;
-            break;
-        case 4:
-            if (start == NULL)
-            {                      
-                cout<<"List empty,nothing to delete"<<endl;   
-                break;
-            }
-            cout<<"Enter the element for deletion: ";
-            cin>>element;
-            dl.delete_element(element);
-            cout<<endl;
-            break;
-        case 5:
-            dl.display_dlist();
-            cout<<endl;
-            break;
-        case 6:
-            exit(1);
-        default:
-            cout<<"Wrong choice"<<endl;
-        }
-    }
-    return 0;
-}
- 
-/*
- * Create Double Link List
- */
-void double_llist::create_list(int value)
+int i, n, arr[50];
+cout<<"Enter the number of elements : ";
+cin>>n;
+for( i = 0; i < n; i++ )
 {
-    struct node *s, *temp;
-    temp = new(struct node); 
-    temp->info = value;
-    temp->next = NULL;
-    if (start == NULL)
-    {
-        temp->prev = NULL;
-        start = temp;
-    }
-    else
-    {
-        s = start;
-        while (s->next != NULL)
-            s = s->next;
-        s->next = temp;
-        temp->prev = s;
-    }
+cout<<"Enter the element : ";
+cin>>arr[i];
 }
- 
-/*
- * Insertion at the beginning
- */
-void double_llist::add_begin(int value)
-{
-    if (start == NULL)
-    {
-        cout<<"First Create the list."<<endl;
-        return;
-    }
-    struct node *temp;
-    temp = new(struct node);
-    temp->prev = NULL;
-    temp->info = value;
-    temp->next = start;
-    start->prev = temp;
-    start = temp;
-    cout<<"Element Inserted"<<endl;
+int max = arr[0], min = arr[0];
+MinMax(arr, 0, n - 1, min, max);
+cout<<"The minimum array element is "<<min<<endl;
+cout<<"The maximum array element is "<<max;
 }
- 
-/*
- * Insertion of element at a particular position
- */
-void double_llist::add_after(int value, int pos)
-{
-    if (start == NULL)
-    {
-        cout<<"First Create the list."<<endl;
-        return;
-    }
-    struct node *tmp, *q;
-    int i;
-    q = start;
-    for (i = 0;i < pos - 1;i++)
-    {
-        q = q->next;
-        if (q == NULL)
-        {
-            cout<<"There are less than ";
-            cout<<pos<<" elements."<<endl;
-            return;
-        }
-    }
-    tmp = new(struct node);
-    tmp->info = value;
-    if (q->next == NULL)
-    {
-        q->next = tmp;
-        tmp->next = NULL;
-        tmp->prev = q;      
-    }
-    else
-    {
-        tmp->next = q->next;
-        tmp->next->prev = tmp;
-        q->next = tmp;
-        tmp->prev = q;
-    }
-    cout<<"Element Inserted"<<endl;
-}
- 
-/*
- * Deletion of element from the list
- */
-void double_llist::delete_element(int value)
-{
-    struct node *tmp, *q;
-     /*first element deletion*/
-    if (start->info == value)
-    {
-        tmp = start;
-        start = start->next;  
-        start->prev = NULL;
-        cout<<"Element Deleted"<<endl;
-        free(tmp);
-        return;
-    }
-    q = start;
-    while (q->next->next != NULL)
-    {   
-        /*Element deleted in between*/
-        if (q->next->info == value)  
-        {
-            tmp = q->next;
-            q->next = tmp->next;
-            tmp->next->prev = q;
-            cout<<"Element Deleted"<<endl;
-            free(tmp);
-            return;
-        }
-        q = q->next;
-    }
-     /*last element deleted*/
-    if (q->next->info == value)    
-    { 	
-        tmp = q->next;
-        free(tmp);
-        q->next = NULL;
-        cout<<"Element Deleted"<<endl;
-        return;
-    }
-    cout<<"Element "<<value<<" not found"<<endl;
-}
- 
-/*
- * Display elements of Doubly Link List
- */
-void double_llist::display_dlist()
-{
-    struct node *q;
-    if (start == NULL)
-    {
-        cout<<"List empty,nothing to display"<<endl;
-        return;
-    }
-    q = start;
-    cout<<"The Doubly Link List is :"<<endl;
-    while (q != NULL)
-    {
-        cout<<q->info<<" <-> ";
-        q = q->next;
-    }
-    cout<<"NULL"<<endl;
-}
-**Output:-**
 
-----------------------------
-
-Operations on Doubly linked list
-
-----------------------------
-1.Create Node
-2.Add at begining
-3.Add after position
-4.Delete
-5.Display
-6.Quit
-Enter your choice : 1
-Enter the element: 10
-
-
-----------------------------
-
-Operations on Doubly linked list
-
-----------------------------
-1.Create Node
-2.Add at begining
-3.Add after position
-4.Delete
-5.Display
-6.Quit
-Enter your choice : 1
-Enter the element: 20
-
-
-----------------------------
-
-Operations on Doubly linked list
-
-----------------------------
-1.Create Node
-2.Add at begining
-3.Add after position
-4.Delete
-5.Display
-6.Quit
-Enter your choice : 1
-Enter the element: 30
-
-
-----------------------------
-
-Operations on Doubly linked list
-
-----------------------------
-1.Create Node
-2.Add at begining
-3.Add after position
-4.Delete
-5.Display
-6.Quit
-Enter your choice : 1
-Enter the element: 40
-
-
-----------------------------
-
-Operations on Doubly linked list
-
-----------------------------
-1.Create Node
-2.Add at begining
-3.Add after position
-4.Delete
-5.Display
-6.Quit
-Enter your choice : 1
-Enter the element: 50
-
-
-----------------------------
-
-Operations on Doubly linked list
-
-----------------------------
-1.Create Node
-2.Add at begining
-3.Add after position
-4.Delete
-5.Display
-6.Quit
-Enter your choice : 5
-The Doubly Link List is :
-10 <-> 20 <-> 30 <-> 40 <-> 50 <-> NULL
-
-
-----------------------------
-
-Operations on Doubly linked list
-
-----------------------------
-1.Create Node
-2.Add at begining
-3.Add after position
-4.Delete
-5.Display
-6.Quit
-Enter your choice : 2
-Enter the element: 15
-Element Inserted
-
-
-----------------------------
-
-Operations on Doubly linked list
-
-----------------------------
-1.Create Node
-2.Add at begining
-3.Add after position
-4.Delete
-5.Display
-6.Quit
-Enter your choice : 5
-The Doubly Link List is :
-15 <-> 10 <-> 20 <-> 30 <-> 40 <-> 50 <-> NULL
-
-
-----------------------------
-
-Operations on Doubly linked list
-
-----------------------------
-1.Create Node
-2.Add at begining
-3.Add after position
-4.Delete
-5.Display
-6.Quit
-Enter your choice : 3
-Enter the element: 40
-Insert Element after postion: 3
-Element Inserted
-
-
-----------------------------
-
-Operations on Doubly linked list
-
-----------------------------
-1.Create Node
-2.Add at begining
-3.Add after position
-4.Delete
-5.Display
-6.Quit
-Enter your choice : 5
-The Doubly Link List is :
-15 <-> 10 <-> 20 <-> 40 <-> 30 <-> 40 <-> 50 <-> NULL
-
-
-----------------------------
-
-Operations on Doubly linked list
-
-----------------------------
-1.Create Node
-2.Add at begining
-3.Add after position
-4.Delete
-5.Display
-6.Quit
-Enter your choice : 4
-Enter the element for deletion: 30
-Element Deleted
-
-
-----------------------------
-
-Operations on Doubly linked list
-
-----------------------------
-1.Create Node
-2.Add at begining
-3.Add after position
-4.Delete
-5.Display
-6.Quit
-Enter your choice : 5
-The Doubly Link List is :
-15 <-> 10 <-> 20 <-> 40 <-> 40 <-> 50 <-> NULL
-
-
-----------------------------
-
-Operations on Doubly linked list
-
-----------------------------
-1.Create Node
-2.Add at begining
-3.Add after position
-4.Delete
-5.Display
-6.Quit
-Enter your choice : 8
-Wrong choice
-
-----------------------------
-
-Operations on Doubly linked list
-
-----------------------------
-1.Create Node
-2.Add at begining
-3.Add after position
-4.Delete
-5.Display
-6.Quit
-Enter your choice : 6
-
---------------------------------
  
 
 
