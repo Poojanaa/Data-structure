@@ -2987,6 +2987,16 @@ MinMax(arr, 0, n - 1, min, max);<br>
 cout<<"The minimum array element is "<<min<<endl;<br>
 cout<<"The maximum array element is "<<max;<br>
 }<br>
+**Output:-**<br>
+Enter the number of elements : 5<br>
+Enter the element : 20<br>
+Enter the element : 45<br>
+Enter the element : 23<br>
+Enter the element : 98<br>
+Enter the element : 35<br>
+The minimum array element is 20<br>
+The maximum array element is 98<br>
+--------------------------------<br>
 <br>	
 <br>	
 **15.Write a program to implement a tower of Hanoi.**<br>
@@ -3200,7 +3210,103 @@ Edges of MST are<br>
 3 - 4<br>
 Weight of MST is 37<br>
 --------------------------------<br>
-**18.**
+**18.Write a program to count number of connected component in an undirected graph.**<br>
+#include <iostream><br>
+#include <list><br>
+using namespace std;<br>
+ 
+// Graph class represents a undirected graph<br>
+// using adjacency list representation<br>
+class Graph {<br>
+    int V; // No. of vertices<br>
+ 
+    // Pointer to an array containing adjacency lists<br>
+    list<int>* adj;<br>
+ 
+    // A function used by DFS<br>
+    void DFSUtil(int v, bool visited[]);<br>
+ 
+public:<br>
+    Graph(int V); // Constructor<br>
+    ~Graph();<br>
+    void addEdge(int v, int w);<br>
+    void connectedComponents();<br>
+};<br>
+ 
+// Method to print connected components in an<br>
+// undirected graph<br>
+void Graph::connectedComponents()<br>
+{<br>
+    // Mark all the vertices as not visited<br>
+    bool* visited = new bool[V];<br>
+    for (int v = 0; v < V; v++)<br>
+        visited[v] = false;<br>
+ 
+    for (int v = 0; v < V; v++) {<br>
+        if (visited[v] == false) {<br>
+            // print all reachable vertices<br>
+            // from v<br>
+            DFSUtil(v, visited);<br>
+ 
+            cout << "\n";<br>
+        }<br>
+    }<br>
+    delete[] visited;<br>
+}<br>
+ 
+void Graph::DFSUtil(int v, bool visited[])<br>
+{<br>
+    // Mark the current node as visited and print it<br>
+    visited[v] = true;<br>
+    cout << v << " ";<br>
+ 
+    // Recur for all the vertices<br>
+    // adjacent to this vertex<br>
+    list<int>::iterator i;<br>
+    for (i = adj[v].begin(); i != adj[v].end(); ++i)<br>
+        if (!visited[*i])<br>
+            DFSUtil(*i, visited);<br>
+}<br>
+ 
+Graph::Graph(int V)<br>
+{<br>
+    this->V = V;<br>
+    adj = new list<int>[V];<br>
+}<br>
+ 
+Graph::~Graph() { delete[] adj; }<br>
+ 
+// method to add an undirected edge<br>
+void Graph::addEdge(int v, int w)<br>
+{<br>
+    adj[v].push_back(w);<br>
+    adj[w].push_back(v);<br>
+}<br>
+ 
+// Driver code<br>
+int main()<br>
+{<br>
+    // Create a graph given in the above diagram<br>
+    Graph g(5); // 5 vertices numbered from 0 to 4<br>
+    g.addEdge(1, 0);<br>
+    g.addEdge(2, 3);<br>
+    g.addEdge(3, 4);<br>
+ 
+    cout << "Following are connected components \n";<br>
+    g.connectedComponents();<br>
+ 
+    return 0;<br>
+}<br>
+<br><br>
+<br><br>
+**Output:-**<br>
+Following are connected components<br>
+0 1<br>
+2 3 4<br>
+--------------------------------<br>
+<br>
+<br>
+**19.**
 	
 
 
