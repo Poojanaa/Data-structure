@@ -2924,8 +2924,8 @@ Enter your choice : 6<br>
 	<br>
 	<br>
 	<br>
-**1.
-	#include <iostream>
+**14.
+#include <iostream>
 using namespace std;
 void MinMax(int arr[], int low, int high, int &min, int &max)
 {
@@ -2985,8 +2985,233 @@ MinMax(arr, 0, n - 1, min, max);
 cout<<"The minimum array element is "<<min<<endl;
 cout<<"The maximum array element is "<<max;
 }
-
+<br>
+<br><br>	
+<br>	
+**15.Write a program to implement a tower of Hanoi.**<br>
+#include <bits/stdc++.h><br>
+using namespace std;<br>
  
+void towerOfHanoi(int n, char from_rod,<br>
+                    char to_rod, char aux_rod)<br>
+{<br>
+    if (n == 0)<br>
+    {
+        return;<br>
+    }<br>
+    towerOfHanoi(n - 1, from_rod, aux_rod, to_rod);<br>
+    cout << "Move disk " << n << " from rod " << from_rod <<
+                                " to rod " << to_rod << endl;<br>
+    towerOfHanoi(n - 1, aux_rod, to_rod, from_rod);<br>
+}<br>
+ 
+
+int main()<br>
+{<br>
+    int n = 4; <br>
+    towerOfHanoi(n, 'A', 'C', 'B');<br>
+    return 0;<br>
+}<br>
+**Output:-**<br>
+Move disk 1 from rod A to rod B<br>
+Move disk 2 from rod A to rod C<br>
+Move disk 1 from rod B to rod C<br>
+Move disk 3 from rod A to rod B<br>
+Move disk 1 from rod C to rod A<br>
+Move disk 2 from rod C to rod B<br>
+Move disk 1 from rod A to rod B<br>
+Move disk 4 from rod A to rod C<br>
+Move disk 1 from rod B to rod C<br>
+Move disk 2 from rod B to rod A<br>
+Move disk 1 from rod C to rod A<br>
+Move disk 3 from rod B to rod C<br>
+Move disk 1 from rod A to rod B<br>
+Move disk 2 from rod A to rod C<br>
+Move disk 1 from rod B to rod C<br>
+
+--------------------------------<br>
+	<br>
+	<br>
+	<br>
+**16.Write a C++ program to find   MST using Prim’s algorithm..**<br>
+#include <bits/stdc++.h>
+using namespace std;
+#define V 5
+int minKey(int key[], bool mstSet[])
+{
+int min = INT_MAX, min_index;
+for (int v = 0; v < V; v++)
+if (mstSet[v] == false && key[v] < min)
+min = key[v], min_index = v;
+return min_index;
+}
+void printMST(int parent[], int graph[V][V])
+{
+cout<<"Edge \tWeight\n";
+for (int i = 1; i < V; i++)
+cout<<parent[i]<<" - "<<i<<" \t"<<graph[i][parent[i]]<<" \n";
+}
+
+void primMST(int graph[V][V])
+{
+int parent[V];
+int key[V];
+bool mstSet[V];
+for (int i = 0; i < V; i++)
+key[i] = INT_MAX, mstSet[i] = false;
+key[0] = 0;
+parent[0] = -1; // First node is always root of MST
+for (int count = 0; count < V - 1; count++)
+{
+int u = minKey(key, mstSet);
+mstSet[u] = true;
+for (int v = 0; v < V; v++)
+if (graph[u][v] && mstSet[v] == false && graph[u][v] < key[v])
+parent[v] = u, key[v] = graph[u][v];
+}
+printMST(parent, graph);
+}
+int main()
+{
+int graph[V][V] = { { 0, 2, 0, 6, 0 },
+{ 2, 0, 3, 8, 5 },
+{ 0, 3, 0, 0, 7 },
+{ 6, 8, 0, 0, 9 },
+{ 0, 5, 7, 9, 0 } };
+primMST(graph);
+return 0;
+}
+<br>
+<br>
+**Output:-**<br>
+Edge    Weight<br>
+0 - 1   2<br>
+1 - 2   3<br>
+0 - 3   6<br>
+1 - 4   5<br>
+--------------------------------<br>
+**17.Write a C++ program to find  MST Using  Kruskal’s algorithm.**<br>
+#include<bits/stdc++.h><br>
+using namespace std;<br>
+typedef pair<int, int> iPair;<br>
+struct Graph<br>
+{<br>
+int V, E;<br>
+vector< pair<int, iPair> > edges;<br>
+Graph(int V, int E)<br>
+{<br>
+this->V = V;<br>
+this->E = E;<br>
+}<br>
+void addEdge(int u, int v, int w)<br>
+{<br>
+edges.push_back({w, {u, v}});<br>
+}<br>
+int kruskalMST();<br>
+};<br>
+
+struct DisjointSets<br>
+{<br>
+int *parent, *rnk;<br>
+int n;<br>
+DisjointSets(int n)<br>
+{<br>
+this->n = n;<br>
+parent = new int[n+1];<br>
+rnk = new int[n+1];<br>
+for (int i = 0; i <= n; i++)<br>
+{<br>
+rnk[i] = 0;<br>
+parent[i] = i;<br>
+}<br>
+}<br>
+int find(int u)<br>
+{<br>
+if (u != parent[u])<br>
+parent[u] = find(parent[u]);<br>
+return parent[u];<br>
+}<br>
+void merge(int x, int y)<br>
+{<br>
+x = find(x), y = find(y);<br>
+if (rnk[x] > rnk[y])<br>
+parent[y] = x;<br>
+else // If rnk[x] <= rnk[y]<br>
+parent[x] = y;<br>
+if (rnk[x] == rnk[y])<br>
+rnk[y]++;<br>
+}<br>
+};<br>
+int Graph::kruskalMST()<br>
+{<br>
+int mst_wt = 0; <br>
+sort(edges.begin(), edges.end());<br>
+DisjointSets ds(V);<br>
+vector< pair<int, iPair> >::iterator it;<br>
+for (it=edges.begin(); it!=edges.end(); it++)<br>
+{<br>
+int u = it->second.first;<br>
+int v = it->second.second;<br>
+int set_u = ds.find(u);<br>
+int set_v = ds.find(v);<br>
+if (set_u != set_v)<br>
+{<br>
+cout << u << " - " << v << endl;<br>
+mst_wt += it->first;<br>
+ds.merge(set_u, set_v);<br>
+}<br>
+}<br>
+return mst_wt;<br>
+}<br>
+int main()<br>
+{<br>
+int V = 9, E = 14;<br>
+Graph g(V, E);<br>
+g.addEdge(0, 1, 4);<br>
+g.addEdge(0, 7, 8);<br>
+g.addEdge(1, 2, 8);<br>
+g.addEdge(1, 7, 11);<br>
+g.addEdge(2, 3, 7);<br>
+g.addEdge(2, 8, 2);<br>
+g.addEdge(2, 5, 4);<br>
+g.addEdge(3, 4, 9);<br>
+g.addEdge(3, 5, 14);<br>
+g.addEdge(4, 5, 10);<br>
+g.addEdge(5, 6, 2);<br>
+g.addEdge(6, 7, 1);<br>
+g.addEdge(6, 8, 6);<br>
+g.addEdge(7, 8, 7);<br>
+cout << "Edges of MST are \n";<br>
+int mst_wt = g.kruskalMST();<br>
+cout << "\nWeight of MST is " << mst_wt;<br>
+return 0;<br>
+}<br>
+<br>
+**Output:-**<br>
+Edges of MST are<br>
+6 - 7<br>
+2 - 8<br>
+5 - 6<br>
+0 - 1<br>
+2 - 5<br>
+2 - 3<br>
+0 - 7<br>
+3 - 4<br>
+Weight of MST is 37<br>
+--------------------------------<br>
+**18.**
+	
+
+
+
+
+
+		 
+
+
+
+	
+
 
 
 
