@@ -2924,69 +2924,70 @@ Enter your choice : 6<br>
 	<br>
 	<br>
 	<br>
-**14.
-#include <iostream>
-using namespace std;
-void MinMax(int arr[], int low, int high, int &min, int &max)
-{
-if (low == high)
-{
-if (max < arr[low]) {           // comparison 1
-max = arr[low];
-}
+**14.Finding minimum and maximum from given unsorted array by using divide conquer method.**<br>
+#include <iostream><br>
+using namespace std;<br>
+void MinMax(int arr[], int low, int high, int &min, int &max)<br>
+{<br>
+if (low == high)<br>
+{<br>
+if (max < arr[low])<br>
+	{<br>           // comparison 1
+max = arr[low];<br>
+}<br>
 
-if (min > arr[high]) {          // comparison 2
-min = arr[high];
-}
-return;
-}
-if (high - low == 1)
-{
-if (arr[low] < arr[high])
-{
-if (min > arr[low])
-{
-min = arr[low];
-}
-if (max < arr[high])
-{
-max = arr[high];
-}
-}
-else
-{
-if (min > arr[high])
-{
-min = arr[high];
-}
-if (max < arr[low])
-{
-max = arr[low];
-}
-}
-return;
-}
-int mid = (low + high) / 2;
-MinMax(arr, low, mid, min, max);
-MinMax(arr, mid + 1, high, min, max);
-}
-int main()
-{
-int i, n, arr[50];
-cout<<"Enter the number of elements : ";
-cin>>n;
-for( i = 0; i < n; i++ )
-{
-cout<<"Enter the element : ";
-cin>>arr[i];
-}
-int max = arr[0], min = arr[0];
-MinMax(arr, 0, n - 1, min, max);
-cout<<"The minimum array element is "<<min<<endl;
-cout<<"The maximum array element is "<<max;
-}
-<br>
-<br><br>	
+if (min > arr[high])<br>
+	{     <br>     // comparison 2
+min = arr[high];<br>
+}<br>
+return;<br>
+}<br>
+if (high - low == 1)<br>
+{<br>
+if (arr[low] < arr[high])<br>
+{<br>
+if (min > arr[low])<br>
+{<br>
+min = arr[low];<br>
+}<br>
+if (max < arr[high])<br>
+{<br>
+max = arr[high];<br>
+}<br>
+}<br>
+else<br>
+{<br>
+if (min > arr[high])<br>
+{<br>
+min = arr[high];<br>
+}<br>
+if (max < arr[low])<br>
+{<br>
+max = arr[low];<br>
+}<br>
+}<br>
+return;<br>
+}<br>
+int mid = (low + high) / 2;<br>
+MinMax(arr, low, mid, min, max);<br>
+MinMax(arr, mid + 1, high, min, max);<br>
+}<br>
+int main()<br>
+{<br>
+int i, n, arr[50];<br>
+cout<<"Enter the number of elements : ";<br>
+cin>>n;<br>
+for( i = 0; i < n; i++ )<br>
+{<br>
+cout<<"Enter the element : ";<br>
+cin>>arr[i];<br>
+}<br>
+int max = arr[0], min = arr[0];<br>
+MinMax(arr, 0, n - 1, min, max);<br>
+cout<<"The minimum array element is "<<min<<endl;<br>
+cout<<"The maximum array element is "<<max;<br>
+}<br>
+<br>	
 <br>	
 **15.Write a program to implement a tower of Hanoi.**<br>
 #include <bits/stdc++.h><br>
@@ -3034,53 +3035,53 @@ Move disk 1 from rod B to rod C<br>
 	<br>
 	<br>
 **16.Write a C++ program to find   MST using Prim’s algorithm..**<br>
-#include <bits/stdc++.h>
-using namespace std;
-#define V 5
-int minKey(int key[], bool mstSet[])
-{
-int min = INT_MAX, min_index;
-for (int v = 0; v < V; v++)
-if (mstSet[v] == false && key[v] < min)
-min = key[v], min_index = v;
-return min_index;
-}
-void printMST(int parent[], int graph[V][V])
-{
-cout<<"Edge \tWeight\n";
-for (int i = 1; i < V; i++)
-cout<<parent[i]<<" - "<<i<<" \t"<<graph[i][parent[i]]<<" \n";
-}
+#include <bits/stdc++.h><br>
+using namespace std;<br>
+#define V 5<br>
+int minKey(int key[], bool mstSet[])<br>
+{<br>
+int min = INT_MAX, min_index;<br>
+for (int v = 0; v < V; v++)<br>
+if (mstSet[v] == false && key[v] < min)<br>
+min = key[v], min_index = v;<br>
+return min_index;<br>
+}<br>
+void printMST(int parent[], int graph[V][V])<br>
+{<br>
+cout<<"Edge \tWeight\n";<br>
+for (int i = 1; i < V; i++)<br>
+cout<<parent[i]<<" - "<<i<<" \t"<<graph[i][parent[i]]<<" \n";<br>
+}<br>
 
-void primMST(int graph[V][V])
-{
-int parent[V];
-int key[V];
-bool mstSet[V];
-for (int i = 0; i < V; i++)
-key[i] = INT_MAX, mstSet[i] = false;
-key[0] = 0;
-parent[0] = -1; // First node is always root of MST
-for (int count = 0; count < V - 1; count++)
-{
-int u = minKey(key, mstSet);
-mstSet[u] = true;
-for (int v = 0; v < V; v++)
-if (graph[u][v] && mstSet[v] == false && graph[u][v] < key[v])
-parent[v] = u, key[v] = graph[u][v];
-}
-printMST(parent, graph);
-}
-int main()
-{
-int graph[V][V] = { { 0, 2, 0, 6, 0 },
-{ 2, 0, 3, 8, 5 },
-{ 0, 3, 0, 0, 7 },
-{ 6, 8, 0, 0, 9 },
-{ 0, 5, 7, 9, 0 } };
-primMST(graph);
-return 0;
-}
+void primMST(int graph[V][V])<br>
+{<br>
+int parent[V];<br>
+int key[V];<br>
+bool mstSet[V];<br>
+for (int i = 0; i < V; i++)<br>
+key[i] = INT_MAX, mstSet[i] = false;<br>
+key[0] = 0;<br>
+parent[0] = -1; // First node is always root of MST<br>
+for (int count = 0; count < V - 1; count++)<br>
+{<br>
+int u = minKey(key, mstSet);<br>
+mstSet[u] = true;<br>
+for (int v = 0; v < V; v++)<br>
+if (graph[u][v] && mstSet[v] == false && graph[u][v] < key[v])<br>
+parent[v] = u, key[v] = graph[u][v];<br>
+}<br>
+printMST(parent, graph);<br>
+}<br>
+int main()<br>
+{<br>
+int graph[V][V] = { { 0, 2, 0, 6, 0 },<br>
+{ 2, 0, 3, 8, 5 },<br>
+{ 0, 3, 0, 0, 7 },<br>
+{ 6, 8, 0, 0, 9 },<br>
+{ 0, 5, 7, 9, 0 } };<br>
+primMST(graph);<br>
+return 0;<br>
+}<br>
 <br>
 <br>
 **Output:-**<br>
