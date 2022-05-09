@@ -3004,10 +3004,10 @@ The maximum array element is 98<br>
 using namespace std;<br>
  
 void towerOfHanoi(int n, char from_rod,<br>
-                    char to_rod, char aux_rod)<br>
+char to_rod, char aux_rod)<br>
 {<br>
     if (n == 0)<br>
-    {
+    {<br>
         return;<br>
     }<br>
     towerOfHanoi(n - 1, from_rod, aux_rod, to_rod);<br>
