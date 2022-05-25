@@ -1102,54 +1102,73 @@ Entwr your choice<br>
 <br>
 <br>
 <br>
-**4.Implement a program using doubly linked list**<br>
-#include <iostream><br>
-using namespace std;<br>
-struct Node<br>
-{<br>
-   int data;<br>
-   struct Node *prev;<br>
-   struct Node *next;<br>
-};<br>
-struct Node* head = NULL;<br>
-void insert(int newdata) <br>
-{<br>
-   struct Node* newnode = (struct Node*) malloc(sizeof(struct Node));<br>
-   newnode->data = newdata;<br>
-   newnode->prev = NULL;<br>
-   newnode->next = head;<br>
-   if(head != NULL)<br>
-   head->prev = newnode ;<br>
-   head = newnode;<br>
-}<br>
-void display() <br>
-{<br>
-   struct Node* ptr;<br>
-   ptr = head;<br>
-   while(ptr != NULL) <br>
-   {<br>
-      cout<< ptr->data <<" ";<br>
-      ptr = ptr->next;<br>
-   }<br>
-}<br>
-int main() <br>
-{<br>
-   insert(3);<br>
-   insert(1);<br>
-   insert(7);<br>
-   insert(2);<br>
-   insert(9);<br>
-   cout<<"The doubly linked list is: ";<br>
-   display();<br>
-   return 0;<br>
-}<br>
-**Output:-**<br><br>
-The doubly linked list is: 9 2 7 1 3<br>
---------------------------------<br>
-<br>
-<br>
-<br>
-**5. Write a C++ program for implementing Heap sort technique.**<br>
+**4.Write a C++ program to implement Min Heap.**<br>
+#include <iostream>
+#include <conio.h>
+using namespace std;
+void min_heap(int *a, int m, int n){
+int j, t;
+t= a[m];
+j = 2 * m;
+while (j <= n) {
+if (j < n && a[j+1] < a[j])
+j = j + 1;
+if (t < a[j])
+break;
+else if (t >= a[j]) {
+a[j/2] = a[j];
+j = 2 * j;
+}
+}
+a[j/2] = t;
+return;
+}
+void build_minheap(int *a, int n) 
+{
+int k;
+for(k = n/2; k >= 1; k--) {
+min_heap(a,k,n);
+}
+}
+int main() {
+int n, i;
+cout<<"enter no of elements of array\n";
+cin>>n;
+int a[30];
+for (i = 1; i <= n; i++) {
+cout<<"enter element"<<" "<<(i)<<endl;
+cin>>a[i];
+}
+build_minheap(a, n);
+cout<<"Min Heap\n";
+for (i = 1; i <= n; i++)
+ {
+cout<<a[i]<<endl;
+}
+}
+**Output:-**
+enter no of elements of array
+6
+enter element 1
+3
+enter element 2
+4
+enter element 3
+5
+enter element 4
+8
+enter element 5
+0
+enter element 6
+6
+Min Heap
+0
+3
+5
+8
+4
+6
+**5.Write a C++ program to Sort elements using Max Heap Sort.**<br>
 #include <iostream><br>
 using namespace std;<br>
 void MaxHeapify (int a[], int i, int n)<br>
@@ -3306,7 +3325,75 @@ Following are connected components<br>
 --------------------------------<br>
 <br>
 <br>
-**19.**
+**19.Write a C++ program to Find Hamiltonian circuit for a given graph by using
+backtracking.**<br>
+#include <iostream><br>
+#include <cstdio><br>
+#include <cstdlib><br>
+#define N 5<br>
+using namespace std;<br>
+void displaytheSolution(int path[]);<br>
+bool isSafe(int n, bool g[N][N], int path[], int pos) {<br>
+ if (g [path[pos-1]][n] == 0)<br>
+ return false;<br>
+ for (int i = 0; i < pos; i++)<br>
+ if (path[i] == n)<br>
+ return false;<br>
+ return true;<br>
+}<br>
+bool hamiltonianCycle(bool g[N][N], int path[], int pos) {<br>
+ if (pos == N) {<br>
+ if (g[ path[pos-1] ][ path[0] ] == 1)<br>
+ return true;<br>
+ else<br>
+ return false;<br>
+ }<br>
+ for (int n = 1; n < N; n++) {<br>
+ if (isSafe(n, g, path, pos)) {<br>
+ path[pos] = n;<br>
+
+ if (hamiltonianCycle (g, path, pos+1) == true)<br>
+return true;<br>
+ path[pos] = -1;<br>
+ }<br>
+ }<br>
+ return false;<br>
+}<br>
+bool hamCycle(bool g[N][N]) {<br>
+ int *path = new int[N];<br>
+ for (int i = 0; i < N; i++)<br>
+ path[i] = -1;<br>
+
+ path[0] = 0;<br>
+ if (hamiltonianCycle(g, path, 1) == false) {<br>
+ cout<<"\nCycle does not exist"<<endl;<br>
+ return false;<br>
+ }<br>
+ displaytheSolution(path);<br>
+ return true;<br>
+}<br>
+void displaytheSolution(int p[]) {<br>
+ cout<<"Cycle Exists:";<br>
+ cout<<" Following is one Hamiltonian Cycle \n"<<endl;<br>
+ for (int i = 0; i < N; i++)<br>
+ cout<<p[i]<<" ";<br>
+ cout<< p[0]<<endl;<br>
+}<br>
+int main() {<br>
+ bool g[N][N] = {{0, 1, 0, 1, 1},<br>
+ {0, 0, 1, 1, 0},<br>
+ {0, 1, 0, 1, 1},<br>
+ {1, 1, 1, 0, 1},<br>
+ {0, 1, 1, 0, 0},<br>
+ };<br>
+ hamCycle(g);<br>
+ return 0;<br>
+}<br>
+**Output:-**<br>
+Cycle Exists: Following is one Hamiltonian Cycle<br>
+0 4 1 2 3 0<br>
+
+
 	
 
 
